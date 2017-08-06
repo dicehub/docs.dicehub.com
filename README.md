@@ -6,8 +6,7 @@ This site is built with [hexo](http://hexo.io/). Site content is written in Mark
 
 Start a dev server at `localhost:4000`:
 
-```
-$ npm install -g hexo-cli
+```bash
 $ npm install
-$ hexo server
+$ ./node_modules/.bin/hexo server
 ```
