@@ -1,0 +1,59 @@
+before_script:
+  - echo "Current DIR "$PWD
+  - echo "Current build-tag:" "$CI_BUILD_TAG"
+
+stages:
+    - build
+
+build docker image for dev:
+    stage: build
+    environment: development
+    variables:
+        CI_BUILD_TAG: "latest-dev"
+    script:
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+        - docker build -t $CI_REGISTRY_IMAGE:$CI_BUILD_TAG .
+        - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_TAG
+    only:
+        - dev
+    tags:
+        - image-builder
+
+build docker image for staging:
+    stage: build
+    environment: staging
+    variables:
+        CI_BUILD_TAG: "latest-staging"
+    script:
+        - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+        - docker build -t $CI_REGISTRY_IMAGE:$CI_BUILD_TAG .
+        - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_TAG
+    only:
+        - master
+    except:
+        - /^v?[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-.]+)?$/
+    tags:
+        - image-builder
+
+build docker image for production:
+    stage: build
+    environment: production
+    script:
+        - git branch -a --contains $CI_BUILD_REF
+        - if grep -q "master" <<< $(git branch -a --contains $CI_BUILD_REF); 
+            then
+                echo "Build release image for production";
+                docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY;
+                docker build -t $CI_REGISTRY_IMAGE:latest
+                             -t $CI_REGISTRY_IMAGE:$CI_BUILD_TAG .;
+                docker push $CI_REGISTRY_IMAGE:latest;
+                docker push $CI_REGISTRY_IMAGE:$CI_BUILD_TAG;
+            else
+                echo "Tag is not from master branch. Image will not be deployed for production";
+          fi
+    only:
+        - /^v?[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-.]+)?$/
+    tags:
+        - image-builder
+        
+    
