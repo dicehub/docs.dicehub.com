@@ -15,4 +15,4 @@ COPY . /home/doc
 
 EXPOSE 4000
 
-CMD ["hexo", "server"]
+CMD ["hexo", "generate"]
