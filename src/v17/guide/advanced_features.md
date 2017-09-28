@@ -1,8 +1,14 @@
 ---
-title: diceProperties
+title: Advanced Features
 type: guide
-order: 16
+order: 3
 ---
+
+### WVC: "Whatever"-View-Controller
+
+<p style="text-align: center">
+  <img style="width:700px" src="/images/WVC.png" alt="wvc, dice">
+</p>
 
 ### Properties
 
@@ -39,3 +45,27 @@ def quantity(self, value):
     self.__config.write()
 ```
 If the value is different than what was in the `self.__config['quantity']` variable it will change and written into the configuration file.
+
+### Slots
+
+<p style="text-align: center">
+  <img style="width:700px" src="/images/diceSlots.png" alt="wvc, dice">
+</p>
+
+### Synchronize
+
+<p style="text-align: center">
+  <img style="width:700px" src="/images/diceSync.png" alt="wvc, dice">
+</p>
+
+### User Defined Protocols
+
+<p style="text-align: center">
+  <img style="width:700px" src="/images/UD Protocols.png" alt="wvc, dice">
+</p>
+
+### Tasks
+
+<p style="text-align: center">
+  <img style="width:700px" src="/images/diceTasks.png" alt="wvc, dice">
+</p>

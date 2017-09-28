@@ -35,17 +35,22 @@ release: '17.09.0'
 This package is currently empty. To be able to see this package in the packages treeView in DICE, we need to add our directory with packages to the `dice packages search path`. This can be done by going to `Settings > Packages search paths` and adding our packages directory path:
 
 <p style="text-align: center">
-  <img style="width:700px" src="/images/packages_dirs.png" alt="wvc, dice">
-</p>  
+  <img style="width:700px" src="/images/packages_dirs.png" alt="packages, dice">
+</p>
 
 
  <p class="tip">You can also edit the entry `packages_dirs` in the `~/.DICE/config/dice.json` configuration file.</p>
 
  Now you can see the package in the treeView for packages on the DICE desk.
 
- 
+
 <p style="text-align: center">
   <img style="width:700px" src="/images/packages_treeView_1.png" alt="wvc, dice">
-</p>  
+</p>
 
+Resulting directory structure:
 
+```
+examples-dev
+|- package.yaml
+```
